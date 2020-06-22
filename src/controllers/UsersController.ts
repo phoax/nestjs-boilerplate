@@ -1,29 +1,42 @@
-import { Controller, Delete, Get, Post, Put, Request, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Body,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Request,
+  Query,
+  UseGuards
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from "@nestjs/swagger"
 
-import { AuthService } from 'src/services/AuthService';
-import { JwtAuthGuard } from 'src/auth/guards/JwtAuthGuard';
+import { UsersService } from 'src/services/UsersService'
+import { JwtAuthGuard } from 'src/auth/guards/JwtAuthGuard'
 import { AdminGuard } from "src/auth/guards/AdminGuard"
+
+
+import { UserDto } from 'src/models/dto/UserDto'
 
 @ApiTags("users")
 @Controller('users')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@UseGuards(AdminGuard)
+// @UseGuards(AdminGuard)
 export class UsersController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly usersService: UsersService) { }
 
   @Get()
   @ApiOperation({ summary: "Get user list" })
   @ApiQuery({
     name: "offset",
-    description: "From the desired program to return",
+    description: "From the desired user to return",
     required: false,
     type: Number
   })
   @ApiQuery({
     name: "limit",
-    description: "The maximum number of programs to return",
+    description: "The maximum number of users to return",
     required: false,
     type: Number
   })
@@ -42,19 +55,19 @@ export class UsersController {
 
   @Post()
   @ApiOperation({ summary: "Create an user" })
-  async create(@Request() req) {
-    return this.authService.login(req.user);
+  async create(@Body() user: UserDto) {
+    return this.usersService.create(user)
   }
 
   @Put('/:id')
   @ApiOperation({ summary: "Update an user" })
   async update(@Request() req) {
-    return req.user;
+    return req.user
   }
 
   @Delete('/:id')
   @ApiOperation({ summary: "Delete an user" })
   async delete(@Request() req) {
-    return req.user;
+    return req.user
   }
 }

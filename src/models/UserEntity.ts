@@ -4,12 +4,15 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
+  OneToOne,
+  OneToMany,
 } from 'typeorm'
 
-enum Roles {
-  Admin = "Admin",
-  User = "User",
-}
+import { Profile } from "./ProfileEntity";
+import { Group } from "./GroupEntity";
+
+import { UserRoles } from 'src/constants/userRoles'
 
 @Entity()
 export class User {
@@ -17,15 +20,22 @@ export class User {
   id: number
 
   @Column("enum", {
-    enum: Roles
+    enum: UserRoles
   })
-  role: Roles;
+  role: UserRoles;
 
   @Column()
   email: string
 
   @Column()
   password: string
+
+  @OneToOne(type => Profile)
+  @JoinColumn()
+  profile: Profile;
+
+  @OneToMany(type => Group, group => group.user)
+  groups: Group[]
 
   @CreateDateColumn({ nullable: true })
   createdAt: Date
