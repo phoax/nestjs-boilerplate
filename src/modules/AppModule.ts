@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { ConsoleModule } from 'nestjs-console'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ConfigModule, ConfigService } from '@nestjs/config';
-// import * as Joi from '@hapi/joi';
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { LoggerModule } from "nestjs-pino"
 
 import { AuthModule } from './AuthModule'
 import { HealthChecksModule } from './HealthCheckModule'
@@ -15,8 +15,7 @@ import { AppService } from 'src/services/AppService'
 import { CommandsService } from 'src/services/CommandsService'
 import { HealthCheckService } from 'src/services/HealthCheckService'
 
-// import database from 'src/database/database'
-import configuration from 'src/config/configuration';
+import configuration from 'src/config/configuration'
 import { configSchema } from 'src/validation/configSchema'
 
 @Module({
@@ -34,6 +33,7 @@ import { configSchema } from 'src/validation/configSchema'
     SeederModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
+      inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get('database.host'),
@@ -45,8 +45,20 @@ import { configSchema } from 'src/validation/configSchema'
         synchronize: true,
         keepConnectionAlive: true
       }),
-      inject: [ConfigService],
     }),
+    LoggerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => (
+        {
+          pinoHttp:
+          {
+            level: configService.get('log.level'),
+            prettyPrint: configService.get('log.prettyPrint'),
+          }
+        }
+      )
+    })
   ],
 
   providers: [

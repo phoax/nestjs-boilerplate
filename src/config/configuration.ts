@@ -8,5 +8,10 @@ export default () => ({
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_DATABASE
+  },
+  log: {
+    level: process.env.LOG_LEVEL,
+    prettyPrint: process.env.LOG_PRETTY_PRINT,
+    stream: process.env.LOG_STREAM
   }
 })

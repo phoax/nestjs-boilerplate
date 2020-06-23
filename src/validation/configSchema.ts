@@ -25,4 +25,10 @@ export const configSchema = Joi.object({
   DATABASE_PASSWORD: Joi.string()
     .required(),
 
+  LOG_LEVEL: Joi.string()
+    .default('debug'),
+
+  LOG_PRETTY_PRINT: Joi.string()
+    .default('true'),
+
 })
