@@ -27,6 +27,19 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Commands
+
+```bash
+# get commands help
+$ npm run command:dev -- --help
+```
+
+Seed
+```bash
+# get commands help
+$ npm run command:dev seed
+```
+
 ## Test
 
 ```bash

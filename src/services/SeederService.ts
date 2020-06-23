@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-// import { UsersService } from "src/services/UsersService";
+import { UsersService } from "src/services/UsersService";
 
 import { UserList } from 'src/constants/seedData';
 
@@ -10,22 +10,26 @@ export type User = any;
 export class SeederService {
   // private readonly users: User[];
   constructor(
-    // private readonly usersService: UsersService,
+    private readonly usersService: UsersService,
   ) { }
 
   async seed(): Promise<any> {
-    this.seedUsers()
+    await this.seedUsers()
     return { seed: 'successful' }
   }
 
 
 
-  // Seed users and default portfolios
+  // Seed users
   async seedUsers(
   ): Promise<any> {
     for (const user of UserList) {
-      console.log(user)
-      // await this.usersService.create()
+      const userExists = await this.usersService.findOneBy("email", user.email)
+      if (!userExists) {
+        await this.usersService.create(user)
+      } else {
+        //logger
+      }
     }
   }
 }

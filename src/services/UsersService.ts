@@ -14,6 +14,12 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) { }
 
+  async findOneBy(field: string, value: string): Promise<User> {
+    return await this.usersRepository.findOne({
+      where: { [field]: value },
+    })
+  }
+
   async create(userDto: UserDto): Promise<User> {
     const user = new User();
     user.email = userDto.email

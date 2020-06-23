@@ -1,22 +1,28 @@
 
+import { UserDto } from 'src/models/dto/UserDto';
+import { GroupDto } from 'src/models/dto/GroupDto';
 
 
-
-
-export interface UserData {
-  role: string;
-  email: string;
-  password?: string;
-}
-
-
-export const UserList: UserData[] = [
-
+export const UserList: UserDto[] = [
   {
     role: "admin",
-    email: "test@test.com",
-    password: "toto"
+    email: "admin@test.com",
+    password: "test"
+  },
+  {
+    role: "editor",
+    email: "editor@test.com",
+    password: "test"
+  },
+  {
+    role: "user",
+    email: "user@test.com",
+    password: "test"
   }
+]
 
-
+export const GroupList: GroupDto[] = [
+  {
+    name: "team"
+  }
 ]
