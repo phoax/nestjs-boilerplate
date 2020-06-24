@@ -1,10 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, Column } from "typeorm";
+
+import { BaseEntity } from "./BaseEntity";
 
 @Entity()
-export class Profile {
-
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Profile extends BaseEntity {
 
   @Column()
   gender: string;

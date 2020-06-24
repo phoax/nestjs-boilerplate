@@ -4,9 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { LoggerModule } from "nestjs-pino"
 
+import { DatabaseModule } from './DatabaseModule'
 import { AuthModule } from './AuthModule'
 import { HealthChecksModule } from './HealthCheckModule'
 import { GroupsModule } from './GroupsModule'
+import { ItemsModule } from './ItemsModule'
 import { ProfileModule } from './ProfileModule'
 import { SeederModule } from './SeederModule'
 import { UsersModule } from './UsersModule'
@@ -24,28 +26,15 @@ import { configSchema } from 'src/validation/configSchema'
       load: [configuration],
       validationSchema: configSchema
     }),
+    DatabaseModule,
     AuthModule,
     UsersModule,
     GroupsModule,
     ProfileModule,
+    ItemsModule,
     HealthChecksModule,
     ConsoleModule,
     SeederModule,
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('database.host'),
-        port: configService.get('database.port'),
-        username: configService.get('database.username'),
-        password: configService.get('database.password'),
-        database: configService.get('database.database'),
-        entities: [__dirname + '/../**/*Entity{.ts,.js}'],
-        synchronize: true,
-        keepConnectionAlive: true
-      }),
-    }),
     LoggerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

@@ -20,7 +20,8 @@
     "test:e2e": "echo 'No e2e tests implemented yet.'",
     "command:dev": "ts-node -r tsconfig-paths/register src/applications/commands.ts",
     "command": "node dist/applications/commands.js",
-    "env": "ts-node src/scripts/setEnv.ts"
+    "env": "ts-node src/scripts/setEnv.ts",
+    "migration:generate": "ts-node node_modules/.bin/typeorm migration:generate"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",

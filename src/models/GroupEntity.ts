@@ -1,21 +1,16 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
   OneToOne,
   ManyToOne,
   JoinColumn,
 } from 'typeorm'
 
+import { BaseEntity } from "./BaseEntity";
 import { User } from "./UserEntity";
 
 @Entity()
-export class Group {
-  @PrimaryGeneratedColumn()
-  id: number
-
+export class Group extends BaseEntity {
   @Column()
   name: string
 
@@ -28,10 +23,4 @@ export class Group {
 
   @ManyToOne(type => User, user => user.groups)
   user: User;
-
-  @CreateDateColumn({ nullable: true })
-  createdAt: Date
-
-  @UpdateDateColumn({ nullable: true })
-  updatedAt: Date
 }

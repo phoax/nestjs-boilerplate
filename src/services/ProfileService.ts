@@ -1,14 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
 
-export type User = any;
+export type User = any
 
 @Injectable()
 export class ProfileService {
-  private readonly users: User[];
+  private readonly users: User[]
 
 
 
   async findOne(username: string): Promise<any> {
-    // return this.users.find(user => user.username === username);
+    // return this.users.find(user => user.username === username)
   }
 }

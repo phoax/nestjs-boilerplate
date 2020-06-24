@@ -8,13 +8,17 @@ import {
   Request,
   Query,
   UseGuards
-} from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from "@nestjs/swagger"
+} from '@nestjs/common'
+
+import {
+  ApiBearerAuth,
+  ApiQuery,
+  ApiOperation,
+  ApiTags
+} from "@nestjs/swagger"
 
 import { UsersService } from 'src/services/UsersService'
 import { JwtAuthGuard } from 'src/auth/guards/JwtAuthGuard'
-import { AdminGuard } from "src/auth/guards/AdminGuard"
-
 
 import { UserDto } from 'src/models/dto/UserDto'
 
@@ -44,13 +48,13 @@ export class UsersController {
     @Query('offset') offset,
     @Query('limit') limit,
   ) {
-    // return req.user;
+    // return req.user
   }
 
   @Get('/:id')
   @ApiOperation({ summary: "Get an user" })
   findOne(@Request() req) {
-    return req.user;
+    return req.user
   }
 
   @Post()

@@ -1,24 +1,19 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
   JoinColumn,
   OneToOne,
   OneToMany,
 } from 'typeorm'
 
+import { BaseEntity } from "./BaseEntity";
 import { Profile } from "./ProfileEntity";
 import { Group } from "./GroupEntity";
 
 import { UserRoles } from 'src/constants/userRoles'
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number
-
+export class User extends BaseEntity {
   @Column("enum", {
     enum: UserRoles
   })
@@ -36,10 +31,4 @@ export class User {
 
   @OneToMany(type => Group, group => group.user)
   groups: Group[]
-
-  @CreateDateColumn({ nullable: true })
-  createdAt: Date
-
-  @UpdateDateColumn({ nullable: true })
-  updatedAt: Date
 }
