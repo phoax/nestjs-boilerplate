@@ -10,6 +10,9 @@ export const configSchema = Joi.object({
   PORT: Joi.number()
     .required(),
 
+  SECRET_KEY: Joi.string()
+    .required(),
+
   DATABASE_HOST: Joi.string()
     .required(),
 

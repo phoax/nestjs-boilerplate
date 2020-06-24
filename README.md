@@ -1,5 +1,11 @@
 # NestJS Boilerplate
 
+/!\ Still under development. No unit tests and auth features are not finished.
+
+## Description
+This boilerplate breaks with NestJS modules mechanism.s It organizes code by folders instead of by features.
+
+## Features
 NestJS Boilterplate features:
 - Login user
 - Signup user
