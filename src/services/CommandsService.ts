@@ -3,9 +3,7 @@ import { ConsoleService } from 'nestjs-console'
 import { Connection } from 'typeorm'
 import { InjectPinoLogger, PinoLogger } from "nestjs-pino"
 
-
 import { SeederService } from "src/services/SeederService"
-// import config from '../ormconfig'
 
 @Injectable()
 export class CommandsService {
