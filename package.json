@@ -21,7 +21,8 @@
     "command:dev": "ts-node -r tsconfig-paths/register src/applications/commands.ts",
     "command": "node dist/applications/commands.js",
     "env": "ts-node src/scripts/setEnv.ts",
-    "migration:generate": "ts-node node_modules/.bin/typeorm migration:generate"
+    "migration:generate": "ts-node node_modules/.bin/typeorm migration:generate",
+    "totox": "ts-node -r tsconfig-paths/register src/applications/mainx.ts"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",

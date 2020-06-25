@@ -1,13 +1,20 @@
 import { Injectable } from '@nestjs/common'
 import { ConsoleService } from 'nestjs-console'
+import { Connection } from 'typeorm'
+import { InjectPinoLogger, PinoLogger } from "nestjs-pino"
 
-import { SeederService } from "src/services/SeederService";
+
+import { SeederService } from "src/services/SeederService"
+// import config from '../ormconfig'
 
 @Injectable()
 export class CommandsService {
   constructor(
     private readonly consoleService: ConsoleService,
     private seederService: SeederService,
+    private connection: Connection,
+    @InjectPinoLogger(CommandsService.name)
+    protected readonly logger: PinoLogger,
   ) {
     // get the root cli
     const cli = this.consoleService.getCli()
@@ -16,56 +23,46 @@ export class CommandsService {
     this.consoleService.createCommand(
       {
         command: 'seed',
-        description: 'Seed database'
+        description: 'Seed data'
       },
       this.seed,
       cli // attach the command to the cli
-    );
+    )
 
     // group command
     const groupCommand = this.consoleService.createGroupCommand(
       {
-        name: 'scrap',
-        description: 'Scrap sites'
+        name: 'db',
+        description: 'Database commands'
       },
       cli // attach the command to the root cli
-    );
+    )
 
     // sub command
     this.consoleService.createCommand(
       {
-        command: 'all',
-        description: 'Scrap all'
+        command: 'migrate',
+        description: 'Migrate'
       },
-      this.scrapAll,
+      this.dbMigrate,
       groupCommand // attach the command to the group
-    );
-
-    // sub command
-    this.consoleService.createCommand(
-      {
-        command: 'site <name>',
-        description: 'Scrap a site'
-      },
-      this.scrapSite,
-      groupCommand // attach the command to the group
-    );
+    )
   }
 
   seed = async (): Promise<void> => {
-    console.log(`Start seeding database`)
+    this.logger.info(`Start seeding database`)
     await this.seederService.seed()
-    // const verbs = await this.verbsService.findAll();
-    // console.log(verbs);
-  };
+    this.logger.info(`Database seeded`)
+  }
 
-  scrapAll = async (): Promise<void> => {
-    console.log(`Scrap all sites`)
-    // this.scrapService.all();
-  };
+  dbMigrate = async (): Promise<void> => {
+    this.logger.info("Start database migration")
+    await this.connection.runMigrations({
+      transaction: 'all'
+    })
+    this.logger.info("Database migrated")
+  }
 
-  scrapSite = async (site: string): Promise<void> => {
-    console.log(`Scrap ${site}`)
-    // this.scrapService.site(site)
-  };
+
+
 }
