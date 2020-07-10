@@ -6,9 +6,9 @@ import {
   OneToMany,
 } from 'typeorm'
 
-import { BaseEntity } from "./BaseEntity";
-import { Profile } from "./ProfileEntity";
-import { Group } from "./GroupEntity";
+import { BaseEntity } from "./BaseEntity"
+// import { Profile } from "./ProfileEntity"
+import { Item } from "./ItemEntity"
 
 import { UserRoles } from 'src/constants/userRoles'
 
@@ -17,7 +17,7 @@ export class User extends BaseEntity {
   @Column("enum", {
     enum: UserRoles
   })
-  role: UserRoles;
+  role: UserRoles
 
   @Column()
   email: string
@@ -25,10 +25,13 @@ export class User extends BaseEntity {
   @Column()
   password: string
 
-  @OneToOne(type => Profile)
-  @JoinColumn()
-  profile: Profile;
+  // @OneToOne(type => Profile)
+  // @JoinColumn()
+  // profile: Profile
 
-  @OneToMany(type => Group, group => group.user)
-  groups: Group[]
+  @OneToMany(
+    type => Item,
+    item => item.user,
+  )
+  items: Item[]
 }

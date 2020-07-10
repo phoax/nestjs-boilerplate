@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { UsersController } from 'src/controllers/UsersController'
-import { UsersService } from 'src/services/UsersService'
+import { UsersController } from '../controllers/UsersController'
+import { UsersService } from '../services/UsersService'
 
-import { User } from 'src/models/UserEntity'
+import { User } from '../models/entities/UserEntity'
 
 @Module({
   imports: [

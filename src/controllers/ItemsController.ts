@@ -20,15 +20,17 @@ import {
 import { ItemsService } from 'src/services/ItemsService';
 import { JwtAuthGuard } from 'src/auth/guards/JwtAuthGuard'
 
-import { ItemDto } from 'src/models/dto/ItemDto'
+import { ItemDto } from 'src/models/dtos/ItemDto'
 
+import { ItemsQueryInterface } from 'src/models/interfaces/ItemsQueryInterface'
+
+@ApiTags("items")
 @Controller('items')
 export class ItemsController {
   constructor(private itemsService: ItemsService) { }
 
   @Get()
-  @ApiTags("items")
-  @ApiOperation({ description: "Get items list" })
+  @ApiOperation({ summary: "Get items list" })
   @ApiQuery({
     name: "offset",
     description: "From the desired verb to return",
@@ -46,7 +48,11 @@ export class ItemsController {
     @Query('limit') limit,
     // @Req() request
   ) {
-    // return this.itemsService.create();
+    const itemsQuery = new ItemsQueryInterface()
+    itemsQuery.limit = limit ? limit : itemsQuery.limit
+    itemsQuery.offset = offset ? offset : itemsQuery.offset
+
+    return this.itemsService.findAll(itemsQuery)
   }
 
   @Get('/:id')

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { ItemsController } from 'src/controllers/ItemsController'
-import { ItemsService } from 'src/services/ItemsService'
+import { ItemsController } from '../controllers/ItemsController'
+import { ItemsService } from '../services/ItemsService'
 
-import { Item } from 'src/models/ItemEntity'
+import { Item } from '../models/entities/ItemEntity'
 
 @Module({
   imports: [

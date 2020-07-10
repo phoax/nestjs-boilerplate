@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt'
 import { compare, hash } from "bcrypt"
 
 import { UsersService } from './UsersService'
-import { UserDto } from 'src/models/dto/UserDto'
+import { UserDto } from '../models/dtos/UserDto'
 
 
 @Injectable()

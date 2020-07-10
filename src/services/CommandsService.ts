@@ -3,7 +3,7 @@ import { ConsoleService } from 'nestjs-console'
 import { Connection } from 'typeorm'
 import { InjectPinoLogger, PinoLogger } from "nestjs-pino"
 
-import { SeederService } from "src/services/SeederService"
+import { SeederService } from "../services/SeederService"
 
 @Injectable()
 export class CommandsService {
@@ -26,25 +26,6 @@ export class CommandsService {
       this.seed,
       cli // attach the command to the cli
     )
-
-    // group command
-    const groupCommand = this.consoleService.createGroupCommand(
-      {
-        name: 'db',
-        description: 'Database commands'
-      },
-      cli // attach the command to the root cli
-    )
-
-    // sub command
-    this.consoleService.createCommand(
-      {
-        command: 'migrate',
-        description: 'Migrate'
-      },
-      this.dbMigrate,
-      groupCommand // attach the command to the group
-    )
   }
 
   seed = async (): Promise<void> => {
@@ -52,15 +33,5 @@ export class CommandsService {
     await this.seederService.seed()
     this.logger.info(`Database seeded`)
   }
-
-  dbMigrate = async (): Promise<void> => {
-    this.logger.info("Start database migration")
-    await this.connection.runMigrations({
-      transaction: 'all'
-    })
-    this.logger.info("Database migrated")
-  }
-
-
 
 }

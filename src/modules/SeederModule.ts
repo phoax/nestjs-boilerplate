@@ -1,15 +1,18 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 
-import { SeederService } from 'src/services/SeederService';
-import { UsersModule } from 'src/modules/UsersModule';
-// import { UsersService } from 'src/services/UsersService';
+import { SeederService } from 'src/services/SeederService'
+import { UsersModule } from 'src/modules/UsersModule'
+import { ItemsModule } from 'src/modules/ItemsModule'
 
 @Module({
-  imports: [UsersModule, ConfigModule],
+  imports: [
+    UsersModule,
+    ItemsModule,
+    ConfigModule,
+  ],
   providers: [
     SeederService,
-    // UsersService
   ],
   exports: [SeederService],
 })

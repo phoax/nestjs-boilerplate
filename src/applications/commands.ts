@@ -5,6 +5,7 @@ const bootstrap = new BootstrapConsole({
   module: AppModule,
   useDecorators: true
 });
+
 bootstrap.init().then(async (app) => {
   try {
     // init your app
@@ -13,7 +14,7 @@ bootstrap.init().then(async (app) => {
     await bootstrap.boot();
     process.exit(0);
   } catch (e) {
-    console.log('uaimec');
+    console.log('error:', e);
     process.exit(1);
   }
 });

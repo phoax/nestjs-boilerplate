@@ -2,8 +2,8 @@ import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { InjectPinoLogger, PinoLogger } from "nestjs-pino"
 
-import { AuthService } from 'src/services/AuthService';
-import { JwtAuthGuard } from 'src/auth/guards/JwtAuthGuard';
+import { AuthService } from '../services/AuthService';
+import { JwtAuthGuard } from '../auth/guards/JwtAuthGuard';
 
 @ApiTags("profile")
 @Controller('profile')

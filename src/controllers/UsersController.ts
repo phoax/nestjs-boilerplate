@@ -20,7 +20,10 @@ import {
 import { UsersService } from 'src/services/UsersService'
 import { JwtAuthGuard } from 'src/auth/guards/JwtAuthGuard'
 
-import { UserDto } from 'src/models/dto/UserDto'
+import { UserDto } from 'src/models/dtos/UserDto'
+import { User } from 'src/models/entities/UserEntity'
+
+import { UserRoles } from 'src/constants/userRoles'
 
 @ApiTags("users")
 @Controller('users')
@@ -59,7 +62,11 @@ export class UsersController {
 
   @Post()
   @ApiOperation({ summary: "Create an user" })
-  async create(@Body() user: UserDto) {
+  async create(@Body() userDto: UserDto) {
+    const user = new User();
+    user.email = userDto.email
+    user.password = userDto.password
+    user.role = UserRoles[userDto.role]
     return this.usersService.create(user)
   }
 

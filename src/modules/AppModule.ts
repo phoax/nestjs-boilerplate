@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common'
 import { ConsoleModule } from 'nestjs-console'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { LoggerModule } from "nestjs-pino"
 
 import { DatabaseModule } from './DatabaseModule'
 import { AuthModule } from './AuthModule'
 import { HealthChecksModule } from './HealthCheckModule'
-import { GroupsModule } from './GroupsModule'
 import { ItemsModule } from './ItemsModule'
 import { ProfileModule } from './ProfileModule'
 import { SeederModule } from './SeederModule'
@@ -29,7 +27,6 @@ import { configSchema } from 'src/validation/configSchema'
     DatabaseModule,
     AuthModule,
     UsersModule,
-    GroupsModule,
     ProfileModule,
     ItemsModule,
     HealthChecksModule,

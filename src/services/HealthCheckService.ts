@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { HealthCheckDto } from '../models/dto/HealthCheckDto';
+import { HealthCheckDto } from '../models/dtos/HealthCheckDto';
 
 @Injectable()
 export class HealthCheckService {
