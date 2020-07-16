@@ -1,23 +1,17 @@
-import {
-  Entity,
-  Column,
-  JoinColumn,
-  OneToOne,
-  OneToMany,
-} from 'typeorm'
+import { Entity, Column, JoinColumn, OneToOne, OneToMany } from 'typeorm'
 
-import { BaseEntity } from "./BaseEntity"
+import { BaseEntity } from './BaseEntity'
 // import { Profile } from "./ProfileEntity"
-import { Item } from "./ItemEntity"
+import { Item } from './ItemEntity'
 
 import { UserRoles } from 'src/constants/userRoles'
 
 @Entity()
 export class User extends BaseEntity {
-  @Column("enum", {
-    enum: UserRoles
-  })
-  role: UserRoles
+  // @Column('enum', {
+  //   enum: UserRoles,
+  // })
+  // role: UserRoles
 
   @Column()
   email: string
@@ -29,9 +23,6 @@ export class User extends BaseEntity {
   // @JoinColumn()
   // profile: Profile
 
-  @OneToMany(
-    type => Item,
-    item => item.user,
-  )
+  @OneToMany((type) => Item, (item) => item.user)
   items: Item[]
 }

@@ -3,10 +3,13 @@
 /!\ Still under development. No unit tests and auth features are not finished.
 
 ## Description
+
 This boilerplate breaks with NestJS modules mechanism.s It organizes code by folders instead of by features.
 
 ## Features
+
 NestJS Boilterplate features:
+
 - Login user
 - Signup user
 - Reset user password
@@ -33,6 +36,26 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Deploy
+
+Build the application
+
+```
+$ npm run build
+```
+
+Create database tables
+
+```
+$ npm run db:run
+```
+
+Start the application
+
+```
+$ npm run start
+```
+
 ## Commands
 
 ```bash
@@ -41,6 +64,7 @@ $ npm run command:dev -- --help
 ```
 
 Seed
+
 ```bash
 # get commands help
 $ npm run command:dev seed
@@ -61,4 +85,4 @@ $ npm run test:cov
 
 ## License
 
-  Nest is [MIT licensed](LICENSE).
+Nest is [MIT licensed](LICENSE).

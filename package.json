@@ -21,8 +21,9 @@
     "command:dev": "ts-node -r tsconfig-paths/register src/applications/commands.ts",
     "command": "node dist/applications/commands.js",
     "env": "ts-node src/scripts/setEnv.ts",
-    "database:migrate": "typeorm migration:generate -n SchemaMigration -f src/config/ormconfig.js",
-    "database:run": "node dist/applications/commands.js db migrate",
+    "db:create": "typeorm migration:create -n SchemaMigration -f src/config/ormconfig.js",
+    "db:migrate": "typeorm migration:generate -n SchemaMigration -f src/config/ormconfig.js",
+    "db:run": "typeorm migration:run -f src/config/ormconfig.js",
     "seed": "npm run command:dev seed"
   },
   "dependencies": {

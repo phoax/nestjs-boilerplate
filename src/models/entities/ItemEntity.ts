@@ -1,9 +1,6 @@
-import {
-  Entity,
-  Column, ManyToOne
-} from 'typeorm'
+import { Entity, Column, ManyToOne } from 'typeorm'
 
-import { BaseEntity } from "./BaseEntity"
+import { BaseEntity } from './BaseEntity'
 import { User } from './UserEntity'
 
 @Entity()
@@ -14,9 +11,6 @@ export class Item extends BaseEntity {
   @Column()
   description: string
 
-  @ManyToOne(
-    type => User,
-    user => user.items,
-  )
+  @ManyToOne((type) => User, (user) => user.items)
   user: User
 }

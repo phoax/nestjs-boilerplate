@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { InjectPinoLogger, PinoLogger } from "nestjs-pino"
+import { InjectPinoLogger, PinoLogger } from 'nestjs-pino'
 
-import { UsersService } from "src/services/UsersService"
-import { ItemsService } from "src/services/ItemsService"
+import { UsersService } from 'src/services/UsersService'
+import { ItemsService } from 'src/services/ItemsService'
 
 import { User } from 'src/models/entities/UserEntity'
 import { Item } from 'src/models/entities/ItemEntity'
@@ -18,39 +18,46 @@ export class SeederService {
     private readonly itemsService: ItemsService,
     @InjectPinoLogger(SeederService.name)
     protected readonly logger: PinoLogger,
-  ) { }
+  ) {}
 
   async seed(): Promise<any> {
     await this.seedUsers()
-    this.logger.info("Users seeded")
+    this.logger.info('Users seeded')
     await this.seedItems()
-    this.logger.info("Items seeded")
+    this.logger.info('Items seeded')
     return { seed: 'successful' }
   }
 
   // Seed users
-  async seedUsers(
-  ): Promise<any> {
+  async seedUsers(): Promise<any> {
     for (const userTest of UserTestList) {
-      const userExists = await this.usersService.findOneBy("email", userTest.email)
+      const userExists = await this.usersService.findOneBy(
+        'email',
+        userTest.email,
+      )
       if (!userExists) {
-        const user = new User();
+        const user = new User()
         user.email = userTest.email
         user.password = userTest.password
-        user.role = UserRoles[userTest.role]
+        // user.role = UserRoles[userTest.role]
 
         await this.usersService.create(user)
       } else {
-        this.logger.info("seedUsers(%o)", { message: "User already seeded", email: userTest.email })
+        this.logger.info('seedUsers(%o)', {
+          message: 'User already seeded',
+          email: userTest.email,
+        })
       }
     }
   }
 
   // Seed users
-  async seedItems(
-  ): Promise<any> {
+  async seedItems(): Promise<any> {
     for (const itemTest of ItemTestList) {
-      const itemExists = await this.itemsService.findOneBy("name", itemTest.name)
+      const itemExists = await this.itemsService.findOneBy(
+        'name',
+        itemTest.name,
+      )
       // if (!itemExists) {
       const user = await this.usersService.findOneBy(
         'email',
@@ -69,5 +76,4 @@ export class SeederService {
       // }
     }
   }
-
 }
